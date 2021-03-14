@@ -73,6 +73,13 @@ const CreateSingleOrMultiplePage: React.FC<CreateProps> = (props) => {
 
   // Update partial element of the 'updateElement' state
   const updateField = (name: string, value: string) => {
+    if (typeof value !== 'object') {
+      setUpdateElement({
+        ...updateElement,
+        [name]: value,
+      });
+      return;
+    }
     getImgBase64(value, (image: any) => {
       if (!image) return;
       axios
