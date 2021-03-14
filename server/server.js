@@ -12,22 +12,13 @@ const app = express();
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-//设置跨域访问
-app.all('*', (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  res.header("Access-Control-Allow-Methods", "*");
-  res.header("Content-Type", "application/json;charset=utf-8");
-  next();
-});
-
 const TIMEOUT = 500;
 
 app.use(express.static(path.join(__dirname, '../build'), { index: false }));
 
 app.get('/ping', (req, res) => res.send('pong'));
 
-app.post('/client_credentials', (req, res) => {
+app.post('/api/client_credentials', (req, res) => {
   const client_id = 'iVq8QFW8oMEs5nUFe2QfmCiQ';
   const client_secret = 'HGo3dtAiF99b8QHRfDNHmYOCZz8Y3Gce';
   axios.get(`http://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`)

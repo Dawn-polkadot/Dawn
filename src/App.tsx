@@ -24,7 +24,7 @@ const AppContainer = styled(Container)`
 
 const App: React.FC = () => {
 
-  connect();
+  // connect();
 
   // Show loading spinner or not
   const [isLoading, setIsLoading] = useState(false);

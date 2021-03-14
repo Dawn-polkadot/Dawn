@@ -76,7 +76,7 @@ const CreateSingleOrMultiplePage: React.FC<CreateProps> = (props) => {
     getImgBase64(value, (image: any) => {
       if (!image) return;
       axios
-        .post('http://localhost:8181/client_credentials', {
+        .post('/api/client_credentials', {
           image,
         })
         .then((res) => {
