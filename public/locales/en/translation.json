@@ -9,7 +9,7 @@
     "team": "Team",
     "community": "Community",
     "howitWorks": "How it works",
-    "ternoaTokens": "Ternoa Tokens",
+    "ternoaTokens": "dawnTokens",
     "support": "Support",
     "giveUsFeedbacks": "Give us feedbacks",
     "supportCenter": "Support Center",
@@ -25,7 +25,7 @@
   "topPage": {
     "introduction1":"Buy your ",
     "introduction2":"collectible stamps ",
-    "introduction3":"to send your ternoa capsules.",
+    "introduction3":"to send your dawncapsules.",
     "categoryTitle": "Highlight creators",
     "topCollector": "Top collectors",
     "popularCreations": "Popular stamps",

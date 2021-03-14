@@ -54,7 +54,7 @@ const PreviewStyled = styled.div`
 
 const options = [
   { value: 'erc-721', label: 'Create ERC-721' },
-  { value: 'tiime', label: 'Ternoa Rare TIIME' },
+  { value: 'tiime', label: 'dawnRare TIIME' },
 ];
 
 type CreateProps = {
@@ -100,6 +100,7 @@ const CreateSingleOrMultiplePage: React.FC<CreateProps> = (props) => {
 
   const createItem = () => {
     // TODO add validation here
+    alert(JSON.stringify(updateElement));
   };
 
   return (

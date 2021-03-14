@@ -111,7 +111,7 @@ const Footer: React.FC = () => {
         <Row>
           <Col>
             <P>
-              © Ternoa Stamps All rights reserved &nbsp;
+              © dawnStamps All rights reserved &nbsp;
               <LinkStyled href="#">Terms</LinkStyled> &nbsp;
               <LinkStyled href="#">Privacy</LinkStyled>
               

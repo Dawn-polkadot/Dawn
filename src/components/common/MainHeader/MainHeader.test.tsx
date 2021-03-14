@@ -27,7 +27,7 @@ describe('MainHeader', () => {
 
   it('renders component properly', () => {
     renderMainHeader();
-    expect(screen.getByText('Ternoa Stamp')).toBeInTheDocument();
+    expect(screen.getByText('dawnStamp')).toBeInTheDocument();
   });
 
 });

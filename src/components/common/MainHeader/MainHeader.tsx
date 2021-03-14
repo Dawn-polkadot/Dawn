@@ -71,7 +71,7 @@ const MainHeader: React.FC<MainHeaderType> = ({ walletId }) => {
         <Col small="50" medium="20" large="20">
           <TitleHeader role="button" tabIndex={0} onClick={() => { history.push('/');}}>
             <TernoaLogo />
-            <span>&nbsp; Ternoa Stamp</span>
+            <span>&nbsp; dawnStamp</span>
           </TitleHeader>
           
         </Col>

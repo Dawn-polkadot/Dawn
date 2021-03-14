@@ -10,5 +10,5 @@ test('renders learn react link', () => {
   render(
     <App />
   );
-  return screen.getAllByText(/Ternoa Stamp/i).toBeInTheDocument;
+  return screen.getAllByText(/dawnStamp/i).toBeInTheDocument;
 });
