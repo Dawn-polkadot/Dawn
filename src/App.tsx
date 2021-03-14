@@ -16,12 +16,15 @@ import ProfileTopPage from './components/pages/ProfileTopPage/ProfileTopPage';
 
 import Container from './components/common/ui-library/Container/Container';
 import LoadingSpinner from './components/common/LoadingSpinner/LoadingSpinner';
+import { connect } from './substrate';
 
 const AppContainer = styled(Container)`
   margin-top: 20px;
 `;
 
 const App: React.FC = () => {
+
+  connect();
 
   // Show loading spinner or not
   const [isLoading, setIsLoading] = useState(false);

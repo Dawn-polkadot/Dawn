@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -11,26 +12,28 @@ import Image from '../../common/ui-library/Image/Image';
 import TinyContainer from '../../common/ui-library/TinyContainer/TinyContainer';
 import Button from '../../common/ui-library/Button/Button';
 import { GoBack } from '../../common/Utils/Utils';
-import { 
+import { getImgBase64, getImgBuffer } from '../../../utils/utils';
+import {
   InputBoxStandart,
   InputBoxToggle,
   InputBoxUpload,
   InputBoxSelect,
-  InputBoxProperties } from '../../common/InputBox/InputBox';
+  InputBoxProperties,
+} from '../../common/InputBox/InputBox';
 
-type InitialStateType = { 
+type InitialStateType = {
   image?: string;
   bidFlag?: boolean;
   priceFlag?: boolean;
-  price?: number,
-  unlock?: false,
-  collection?: string,
+  price?: number;
+  unlock?: false;
+  collection?: string;
   name?: string;
   description?: string;
   royalties?: number;
 };
 
-const initialState = { 
+const initialState = {
   image: '',
   bidFlag: false,
   priceFlag: false,
@@ -42,10 +45,9 @@ const initialState = {
   royalties: 0,
 };
 
-
 const PreviewStyled = styled.div`
   width: 90%;
-  height:250px;
+  height: 250px;
   border: 1px solid #c1c1c1;
   border-radius: 8px;
 `;
@@ -60,31 +62,41 @@ type CreateProps = {
 };
 
 const CreateSingleOrMultiplePage: React.FC<CreateProps> = (props) => {
-
   const { t } = useTranslation();
   const history = useHistory();
 
   // Not need to use reducer here, all input values in one JSON object
-  // TODO InitialStateType not used 
-  const [updateElement, setUpdateElement] = 
-    useState(initialState as InitialStateType);
+  // TODO InitialStateType not used
+  const [updateElement, setUpdateElement] = useState(
+    initialState as InitialStateType
+  );
 
   // Update partial element of the 'updateElement' state
   const updateField = (name: string, value: string) => {
-    setUpdateElement({
-      ...updateElement,
-      [name]: value,
+    getImgBase64(value, (image: any) => {
+      if (!image) return;
+      axios
+        .post('http://localhost:8181/client_credentials', {
+          image,
+        })
+        .then((res) => {
+          if (res && res.data && res.data.image) {
+            const img = getImgBuffer(res.data.image);
+            setUpdateElement({
+              ...updateElement,
+              [name]: img,
+            });
+          }
+        });
     });
   };
 
   const createItem = () => {
     // TODO add validation here
-    alert(JSON.stringify(updateElement));
   };
 
   return (
     <TinyContainer>
-      
       <Helmet>
         <title>{t('upload.seo.title')}</title>
         <meta name="description" content={t('upload.seo.description')} />
@@ -92,12 +104,9 @@ const CreateSingleOrMultiplePage: React.FC<CreateProps> = (props) => {
       </Helmet>
 
       <GoBack history={history} text={t('upload.goBack')} />
-      <H1>
-        {props.multiple ? t('upload.titleMultiple'):t('upload.title')}
-      </H1>
+      <H1>{props.multiple ? t('upload.titleMultiple') : t('upload.title')}</H1>
 
       <Row>
-    
         <Col size="70">
           <InputBoxUpload
             label={t('upload.upload')}
@@ -134,8 +143,8 @@ const CreateSingleOrMultiplePage: React.FC<CreateProps> = (props) => {
             label={t('upload.chooseCollection')}
           />
 
-          <InputBoxStandart 
-            name="name" 
+          <InputBoxStandart
+            name="name"
             onChange={updateField}
             label={t('upload.name')}
           />
@@ -161,15 +170,22 @@ const CreateSingleOrMultiplePage: React.FC<CreateProps> = (props) => {
 
           <br />
 
-          <Button onClick={createItem} primary>{t('upload.createItem')}</Button>
+          <Button onClick={createItem} primary>
+            {t('upload.createItem')}
+          </Button>
         </Col>
 
         <Col size="30">
           <PreviewStyled style={{ padding: '10px' }}>
-            { updateElement.image && <Image alt="" responsive src={URL.createObjectURL(updateElement.image)} />}
+            {updateElement.image && (
+              <Image
+                alt=""
+                responsive
+                src={URL.createObjectURL(updateElement.image)}
+              />
+            )}
           </PreviewStyled>
         </Col>
-
       </Row>
     </TinyContainer>
   );
